@@ -41,6 +41,12 @@ Given /^the blog is set up$/ do
                 :profile_id => 1,
                 :name => 'admin',
                 :state => 'active'})
+	User.create!({:login => 'miner',
+                :password => 'aaaaaaaa',
+                :email => 'john@snow.com',
+                :profile_id => 2,
+                :name => 'miner',
+                :state => 'active'})
 end
 
 And /^I am logged into the admin panel$/ do
@@ -53,6 +59,49 @@ And /^I am logged into the admin panel$/ do
   else
     assert page.has_content?('Login successful')
   end
+end
+
+And /^I am logged in as miner$/ do
+  visit '/accounts/login'
+  fill_in 'user_login', :with => 'miner'
+  fill_in 'user_password', :with => 'aaaaaaaa'
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
+  else
+    assert page.has_content?('Login successful')
+  end
+end
+
+And /^I merge the post with another post$/ do
+	fill_in 'merge_with', :with => '2'
+	click_button 'Merge'
+end
+
+And /^I log out$/ do
+	visit '/accounts/logout'
+end
+
+And /^I have written two different posts$/ do
+	visit '/admin/content/new'
+	fill_in 'article_title', :with => 'Jamon Iberico'
+	fill_in 'article__body_and_extended_editor', :with => 'Jamon iberico "Iberian ham", also called pata negra and carna negra is a type of cured ham produced mostly in Spain, but also in some Portuguese regions where it is called presunto iberico. According to Spain\'s Denominacion de Origen rules on food products, the jamon iberico may be made from black Iberian pigs, or cross-bred pigs as long as they are at least 75% iberico.'
+	click_button 'Publish'
+	click_link 'New Article'
+	fill_in 'article_title', :with => 'Spanish omelette'
+	fill_in 'article__body_and_extended_editor', :with => 'The Tortilla Espanola, referred to in the English language as Tortilla, Spanish Omelette, is a typical Spanish dish consisting of a thick egg omelette made with potatoes fried in olive oil.'
+	click_button 'Publish'
+end
+
+And /^I have commented on both posts$/ do
+	visit '/2014/06/30/jamon-iberico'
+	fill_in 'comment_author', :with => 'panete'
+	fill_in 'comment_body', :with => 'muy interesante'
+	click_button 'comment'
+	visit '/2014/06/30/spanish-omelette'
+	fill_in 'comment_author', :with => 'katano'
+	fill_in 'comment_body', :with => 'vaya bazofia'
+	click_button 'comment'
 end
 
 # Single-line step scoper
