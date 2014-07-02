@@ -74,7 +74,7 @@ And /^I am logged in as miner$/ do
 end
 
 And /^I merge the post with another post$/ do
-	fill_in 'merge_with', :with => '2'
+	fill_in 'merge_with', :with => '4'
 	click_button 'Merge'
 end
 
@@ -94,11 +94,13 @@ And /^I have written two different posts$/ do
 end
 
 And /^I have commented on both posts$/ do
-	visit '/2014/06/30/jamon-iberico'
+	visit '/2014/07/02/jamon-iberico'
+	#puts "id primer articulo es " + @article.content_id
 	fill_in 'comment_author', :with => 'panete'
 	fill_in 'comment_body', :with => 'muy interesante'
 	click_button 'comment'
-	visit '/2014/06/30/spanish-omelette'
+	visit '/2014/07/02/spanish-omelette'
+	#puts "id primer articulo es " + @article.content_id
 	fill_in 'comment_author', :with => 'katano'
 	fill_in 'comment_body', :with => 'vaya bazofia'
 	click_button 'comment'

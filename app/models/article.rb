@@ -122,6 +122,15 @@ class Article < Content
 
   end
 
+	def merge_with(merge_id)
+		merged_body = body + Article.find(merge_id).body
+		merged_author = user
+		merged_title = title
+
+		merged_article = Article.new({ :body => merged_body, :user => merged_author, :title => merged_title, :published => 't', :state => :published})
+		return merged_article
+	end
+
   def year_url
     published_at.year.to_s
   end
