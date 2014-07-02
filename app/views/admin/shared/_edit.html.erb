@@ -3,6 +3,6 @@
 
   <%= render :partial => "form" %>
 <% end %>
-<% if  params[:action] == 'edit' %>
+<% if  params[:action] == 'edit' and User.find_by_id(session[:user_id]).admin? %>
 	<%= render :partial => "merge" %>
 <% end %>
