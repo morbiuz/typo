@@ -128,6 +128,8 @@ class Article < Content
 		merged_title = title
 
 		merged_article = Article.new({ :body => merged_body, :user => merged_author, :title => merged_title, :published => 't', :state => :published})
+		merged_article.save!
+
 		return merged_article
 	end
 
