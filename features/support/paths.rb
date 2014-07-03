@@ -22,7 +22,7 @@ module NavigationHelpers
 		when /^the edit post page$/
 			'/admin/content/edit/3'
 		when /^the merged post page$/
-			'/2014/07/02/jamon-iberico'
+			'/2014/07/03/jamon-iberico'
 		when /^the manage articles page$/
 			'/admin/content'
 

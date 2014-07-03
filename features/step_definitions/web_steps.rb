@@ -94,12 +94,12 @@ And /^I have written two different posts$/ do
 end
 
 And /^I have commented on both posts$/ do
-	visit '/2014/07/02/jamon-iberico'
+	visit '/2014/07/03/jamon-iberico'
 	#puts "id primer articulo es " + @article.content_id
 	fill_in 'comment_author', :with => 'panete'
 	fill_in 'comment_body', :with => 'muy interesante'
 	click_button 'comment'
-	visit '/2014/07/02/spanish-omelette'
+	visit '/2014/07/03/spanish-omelette'
 	#puts "id primer articulo es " + @article.content_id
 	fill_in 'comment_author', :with => 'katano'
 	fill_in 'comment_body', :with => 'vaya bazofia'

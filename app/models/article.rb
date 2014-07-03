@@ -124,12 +124,20 @@ class Article < Content
 
 	def merge_with(merge_id)
 		merged_body = body + Article.find(merge_id).body
-		merged_author = user
-		merged_title = title
 
-		merged_article = Article.new({ :body => merged_body, :user => merged_author, :title => merged_title, :published => 't', :state => :published})
+		merged_article = Article.new({ :body => merged_body, :user => user, :title => title, :published => 't', :state => :published})
 		merged_article.save!
 
+		Comment.where(article_id: id).each do |comment|
+			comment.article_id = merged_article.id
+			comment.save!
+		end
+		Comment.where(article_id: merge_id).each do |comment|
+			comment.article_id = merged_article.id
+			comment.save!
+		end
+
+		
 		return merged_article
 	end
 

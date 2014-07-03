@@ -40,9 +40,8 @@ class Admin::ContentController < Admin::BaseController
 	def merge
 		@article = Article.find(params[:id])
 		new_article = @article.merge_with(params[:merge_with])
-		
-		#new_article.save!
-		logger.debug "Id del nuevo articulo" + new_article.id.to_s
+		@article.delete
+		Article.find(params[:merge_with]).delete
 		redirect_to new_article.permalink_url
 	end
 
